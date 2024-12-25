@@ -19,7 +19,6 @@ namespace CS_Day08
                 bool flg = true;
                 do
                 {
-
                     Console.WriteLine("Enter Eployee Name: ");
                     Employees[i].Name = Console.ReadLine();
                     if (Employees[i].Name is null)
