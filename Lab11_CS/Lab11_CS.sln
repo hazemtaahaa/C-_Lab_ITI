@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorTask", "CalculatorTask\CalculatorTask.csproj", "{A48C2B06-00EA-4165-8F61-1E6EE359C0EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdoTask", "AdoTask\AdoTask.csproj", "{323A78AD-7D1F-45B8-AA29-DD1C3557502E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ado Disconnected Mode", "Ado Disconnected Mode\Ado Disconnected Mode.csproj", "{3CB8D19E-D916-4575-A442-621DE3AA68B6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A48C2B06-00EA-4165-8F61-1E6EE359C0EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A48C2B06-00EA-4165-8F61-1E6EE359C0EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A48C2B06-00EA-4165-8F61-1E6EE359C0EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A48C2B06-00EA-4165-8F61-1E6EE359C0EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{323A78AD-7D1F-45B8-AA29-DD1C3557502E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{323A78AD-7D1F-45B8-AA29-DD1C3557502E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{323A78AD-7D1F-45B8-AA29-DD1C3557502E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{323A78AD-7D1F-45B8-AA29-DD1C3557502E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CB8D19E-D916-4575-A442-621DE3AA68B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CB8D19E-D916-4575-A442-621DE3AA68B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CB8D19E-D916-4575-A442-621DE3AA68B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CB8D19E-D916-4575-A442-621DE3AA68B6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
