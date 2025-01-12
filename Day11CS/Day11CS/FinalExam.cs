@@ -37,10 +37,11 @@ namespace Day11CS
         // Bonus
         public override void ShowExamV2()
         {
-           
             int questionNumber = 1;
-            
             List<int> userAnswers = new List<int>();
+
+            // Clear the file at the start (optional, if you want a fresh file each time)
+            File.WriteAllText("file.txt", string.Empty);
 
             foreach (var item in ExamQusetions)
             {
@@ -52,8 +53,15 @@ namespace Day11CS
                 Console.WriteLine("\nQuestions and Answers:");
                 Console.WriteLine($"\nQuestion {questionNumber}: {item.Key.Body}");
 
+                // Write the question to the file
+                File.AppendAllText("file.txt", $"\nQuestion {questionNumber}: {item.Key.Body}\n");
+
+                // Write the choices to the file
                 foreach (var ch in item.Key.Choises)
-                { Console.WriteLine(ch); }
+                {
+                    Console.WriteLine(ch);
+                    File.AppendAllText("file.txt", $"{ch}\n");
+                }
 
                 int userAnswer;
                 bool validAnswer = false;
@@ -66,13 +74,15 @@ namespace Day11CS
                     if (!validAnswer)
                     {
                         Console.WriteLine("Invalid input. Please enter a number between 1 and 4.");
-                        
                     }
                 } while (!validAnswer);
 
                 userAnswers.Add(userAnswer);
-               
-                if (item.Key.Choises[userAnswer-1] == item.Value)
+
+                // Write the user's answer to the file
+                File.AppendAllText("file.txt", $"User Answer: {userAnswer}\n");
+
+                if (item.Key.Choises[userAnswer - 1] == item.Value)
                 {
                     Score++;
                 }
@@ -81,6 +91,10 @@ namespace Day11CS
             }
 
             Console.WriteLine($"\nYour total score is: {Score}/{QustionNumbers}");
+
+            // Write the total score to the file
+            
+            File.AppendAllText("file.txt", $"\nYour total score is: {Score}/{QustionNumbers}\n");
         }
 
 
