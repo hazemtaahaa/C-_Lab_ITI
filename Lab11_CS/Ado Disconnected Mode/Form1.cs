@@ -32,7 +32,6 @@ namespace Ado_Disconnected_Mode
             sqlCommand = new SqlCommand();
             dataTable = new DataTable();
             adapter = new SqlDataAdapter();
-            InitializeDataTable();
             fillNames();
             fillDepartmentData();
             fillStudentData();
