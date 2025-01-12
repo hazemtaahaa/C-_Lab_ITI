@@ -295,19 +295,19 @@ namespace AdoTask
             }
         }
 
-        
+
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
             SqlConnection connection = new SqlConnection(connectionString);
-            if(St_Id==0)
+            if (St_Id == 0)
             {
-                MessageBox.Show("Pleas select a student to delete.","Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Pleas select a student to delete.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            var confirmResualt = MessageBox.Show("Ar you sure you want to delete this student?","Confirm Delete",MessageBoxButtons.YesNo,MessageBoxIcon.Information);
-            if(confirmResualt==DialogResult.No)
+            var confirmResualt = MessageBox.Show("Ar you sure you want to delete this student?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (confirmResualt == DialogResult.No)
             {
                 return;
             }
@@ -316,12 +316,12 @@ namespace AdoTask
             try
             {
                 connection.Open();
-                SqlCommand command =new SqlCommand(query,connection);
+                SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.Add("@St_Id", SqlDbType.Int).Value = St_Id;
 
 
-                int rowAffected =command.ExecuteNonQuery();
-                if(rowAffected>0)
+                int rowAffected = command.ExecuteNonQuery();
+                if (rowAffected > 0)
                 {
                     MessageBox.Show("Student deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     fillStudentData();
@@ -332,7 +332,7 @@ namespace AdoTask
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -344,8 +344,10 @@ namespace AdoTask
 
 
 
-          
+
 
         }
+
+     
     }
 }

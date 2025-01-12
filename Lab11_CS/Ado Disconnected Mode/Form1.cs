@@ -28,26 +28,17 @@ namespace Ado_Disconnected_Mode
         {
             InitializeComponent();
 
-            sqlConnection = new(connectionString); ;
+            sqlConnection = new SqlConnection(connectionString); ;
             sqlCommand = new SqlCommand();
             dataTable = new DataTable();
             adapter = new SqlDataAdapter();
             fillNames();
             fillDepartmentData();
+            
             fillStudentData();
         }
-        private void InitializeDataTable()
-        {
-            dataTable.Columns.Add("St_Id", typeof(int));
-            dataTable.Columns.Add("St_Fname", typeof(string));
-            dataTable.Columns.Add("St_Lname", typeof(string));
-            dataTable.Columns.Add("St_Address", typeof(string));
-            dataTable.Columns.Add("St_Age", typeof(int));
-            dataTable.Columns.Add("Dept_Id", typeof(int));
+       
 
-            // Set the primary key for the DataTable
-            dataTable.PrimaryKey = new DataColumn[] { dataTable.Columns["St_Id"] };
-        }
 
         private void fillStudentData()
         {
@@ -71,25 +62,56 @@ namespace Ado_Disconnected_Mode
 
         private void fillNames()
         {
+            SqlConnection sqlConnection = new SqlConnection(connectionString);
+
+            string query = "select * from student";
 
 
+            try
+            {
+                sqlConnection.Open();
+                SqlCommand command = new SqlCommand(query, sqlConnection);
+                SqlDataReader reader = command.ExecuteReader();
+                DataTable dt = new DataTable();
+                dt.Load(reader);
+                cmbboxNames.DataSource = dt;
+
+                cmbboxNames.DisplayMember = "St_Fname";
+
+                cmbboxNames.ValueMember = "St_Id";
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            finally
+            {
+                sqlConnection.Close();
+            };
 
         }
+
 
         private void fillDepartmentData()
         {
             SqlConnection sqlConnection = new SqlConnection(connectionString);
 
 
+            
+
+            //string query = "select * from Department";
             string query = "SELECT Dept_Id, Dept_Name FROM Department";
 
             try
             {
-
-                SqlDataAdapter sqlDataAdapter = new(query, sqlConnection);
-
+                sqlConnection.Open();
+                SqlCommand command = new SqlCommand(query, sqlConnection);
+                SqlDataReader reader = command.ExecuteReader();
                 DataTable dt = new DataTable();
-                sqlDataAdapter.Fill(dt);
+                dt.Load(reader);
                 dptCmBox.DataSource = dt;
                 dptCmBox.DisplayMember = "Dept_Name";
                 dptCmBox.ValueMember = "Dept_Id";
@@ -150,46 +172,53 @@ namespace Ado_Disconnected_Mode
 
         private void btnSync_Click(object sender, EventArgs e)
         {
-            SqlConnection sqlConnection = new(connectionString);
+           
 
             #region Insert
-            string insQuery = "INSERT INTO Student (St_Fname, St_Lname, St_Age, Dept_Id, St_Address) VALUES (@FName, @LName, @Age, @DeptId, @Address)";
 
             SqlCommand insCommand = new SqlCommand();
-            insCommand.CommandText = insQuery;
-
-            insCommand.Parameters.AddWithValue("@FName", txtFName.Text);
-            insCommand.Parameters.AddWithValue("@LName", txtLName.Text);
-            insCommand.Parameters.AddWithValue("@Age", Convert.ToInt32(txtNumDown.Value));
-            insCommand.Parameters.AddWithValue("@DeptId", Convert.ToInt32(dptCmBox.SelectedValue));
-            insCommand.Parameters.AddWithValue("@Address", txtAddress.Text);
+           
+            string insQuery = "INSERT INTO Student (St_Fname, St_Lname, St_Age, Dept_Id, St_Address) VALUES (@FName, @LName, @Age, @DeptId, @Address)";
             insCommand.Connection = sqlConnection;
+
+            
+            insCommand.Parameters.Add("@FName", SqlDbType.VarChar, 25, "St_Fname");
+            insCommand.Parameters.Add("@LName", SqlDbType.VarChar, 25, "St_Lname");
+            insCommand.Parameters.Add("@Age", SqlDbType.Int, 8, "St_Age");
+            insCommand.Parameters.Add("@DeptId", SqlDbType.Int, 8, "Dept_Id");
+            insCommand.Parameters.Add("@Address", SqlDbType.VarChar, 25, "St_Address");
+
+            insCommand.CommandText = insQuery;
+            adapter.InsertCommand = insCommand;
             #endregion
 
             #region Update
             SqlCommand updatCommand = new SqlCommand();
-            string updateQuery = "UPDATE Student SET St_Fname = @FName, St_Lname = @LName, St_Age = @Age, Dept_Id = @DeptId, St_Address = @Address WHERE St_Id = @St_Id";
 
-            updatCommand.CommandText = updateQuery;
-            updatCommand.Parameters.AddWithValue("@St_Id", St_Id);
-            updatCommand.Parameters.AddWithValue("@FName", FName);
-            updatCommand.Parameters.AddWithValue("@LName", LName);
-            updatCommand.Parameters.AddWithValue("@Age", Age);
-            updatCommand.Parameters.AddWithValue("@DeptId", DeptId);
-            updatCommand.Parameters.AddWithValue("@Address", Address);
+           
+            string updateQuery = "UPDATE Student SET St_Fname = @FName, St_Lname = @LName, St_Age = @Age, Dept_Id = @DeptId, St_Address = @Address WHERE St_Id = @St_Id";
             updatCommand.Connection = sqlConnection;
+            
+            updatCommand.Parameters.Add("@St_Id", SqlDbType.Int, 8, "St_Id");
+            updatCommand.Parameters.Add("@FName", SqlDbType.VarChar, 25, "St_Fname");
+            updatCommand.Parameters.Add("@LName", SqlDbType.VarChar, 25, "St_Lname");
+            updatCommand.Parameters.Add("@Age", SqlDbType.Int, 8, "St_Age");
+            updatCommand.Parameters.Add("@DeptId", SqlDbType.Int, 8, "Dept_Id");
+            updatCommand.Parameters.Add("@Address", SqlDbType.VarChar, 25, "St_Address");
+            updatCommand.CommandText = updateQuery;
+            
             #endregion
 
             #region Delete
             SqlCommand deletCommand = new SqlCommand();
             string deletQuery = "DELETE FROM Student WHERE St_Id = @St_Id";
             deletCommand.CommandText = deletQuery;
-            deletCommand.Parameters.AddWithValue("@St_Id", St_Id);
+            deletCommand.Parameters.Add("@St_Id", SqlDbType.Int, 8, "St_Id");
             deletCommand.Connection = sqlConnection;
             #endregion
 
             // Assign commands to the adapter
-            adapter.InsertCommand = insCommand;
+            
             adapter.DeleteCommand = deletCommand;
             adapter.UpdateCommand = updatCommand;
 
@@ -230,8 +259,7 @@ namespace Ado_Disconnected_Mode
             dr["Dept_Id"] = Convert.ToInt32(dptCmBox.SelectedValue);
 
 
-            dataTable.Rows.Add(dr);
-            // MessageBox.Show($"Rows in DataTable: {dataTable.Rows.Count}", "Debug");
+            dataTable.Rows.Add(dr); 
             grdViwe.DataSource = null;
             grdViwe.DataSource = dataTable;
 
@@ -284,9 +312,9 @@ namespace Ado_Disconnected_Mode
             St_Id = Convert.ToInt32(cmbboxNames.SelectedValue);
 
 
-            string query = $"select * from student where St_Id = @St_Id";
+            string query = "select * from student where St_Id = @St_Id";
             try
-            {
+            {   
                 sqlConnection.Open();
                 SqlCommand command = new SqlCommand(query, sqlConnection);
                 command.Parameters.AddWithValue("@St_Id", St_Id);

@@ -189,6 +189,7 @@
             cmbboxNames.Name = "cmbboxNames";
             cmbboxNames.Size = new Size(286, 28);
             cmbboxNames.TabIndex = 15;
+           
             // 
             // btnGetByName
             // 
