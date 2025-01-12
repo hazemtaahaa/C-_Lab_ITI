@@ -196,10 +196,10 @@ namespace Ado_Disconnected_Mode
             SqlCommand updatCommand = new SqlCommand();
 
            
-            string updateQuery = "UPDATE Student SET St_Fname = @FName, St_Lname = @LName, St_Age = @Age, Dept_Id = @DeptId, St_Address = @Address WHERE St_Id = @St_Id";
+            string updateQuery = "UPDATE Student SET St_Fname = @FName, St_Lname = @LName, St_Age = @Age, Dept_Id = @DeptId, St_Address = @Address WHERE St_Id = @Id";
             updatCommand.Connection = sqlConnection;
             
-            updatCommand.Parameters.Add("@St_Id", SqlDbType.Int, 8, "St_Id");
+            updatCommand.Parameters.Add("@Id", SqlDbType.Int, 8, "St_Id");
             updatCommand.Parameters.Add("@FName", SqlDbType.VarChar, 25, "St_Fname");
             updatCommand.Parameters.Add("@LName", SqlDbType.VarChar, 25, "St_Lname");
             updatCommand.Parameters.Add("@Age", SqlDbType.Int, 8, "St_Age");
@@ -295,6 +295,7 @@ namespace Ado_Disconnected_Mode
 
                     // Refresh the GridView to reflect the changes
                     grdViwe.DataSource = null;
+                   
                     grdViwe.DataSource = dataTable;
 
                     MessageBox.Show("Row updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

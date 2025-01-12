@@ -1,3 +1,4 @@
+using System.Data;
 using System.Globalization; 
 
 namespace CalculatorTask
@@ -12,66 +13,32 @@ namespace CalculatorTask
         {
             InitializeComponent();
         }
-
+        string str = string.Empty;
         private void btnNums(object sender, EventArgs e)
         {
-            var btn = sender as Button;
+            Button btn = sender as Button;
+            str += btn.Text;
+
             if (btn != null)
             {
                 txtRes.AppendText(btn.Text);
             }
         }
 
-        private void btnOper_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var btn = sender as Button;
-                Num1 = Convert.ToDouble(txtRes.Text, CultureInfo.InvariantCulture); 
-                txtRes.Clear();
-                Oprt = Convert.ToChar(btn.Text);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Please enter a valid number before selecting an operation.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        
 
         private void btnEqulas_Click(object sender, EventArgs e)
         {
             try
             {
-                Num2 = Convert.ToDouble(txtRes.Text, CultureInfo.InvariantCulture); // ?????? CultureInfo.InvariantCulture
-                txtRes.Clear();
-                switch (Oprt)
-                {
-                    case '+':
-                        txtRes.Text = (Num1 + Num2).ToString(CultureInfo.InvariantCulture);
-                        break;
-                    case '-':
-                        txtRes.Text = (Num1 - Num2).ToString(CultureInfo.InvariantCulture);
-                        break;
-                    case '*':
-                        txtRes.Text = (Num1 * Num2).ToString(CultureInfo.InvariantCulture);
-                        break;
-                    case '/':
-                        if (Num2 == 0)
-                        {
-                            MessageBox.Show("Division by zero is not allowed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else
-                        {
-                            txtRes.Text = (Num1 / Num2).ToString(CultureInfo.InvariantCulture);
-                        }
-                        break;
-                    default:
-                        MessageBox.Show("Invalid operation.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        break;
-                }
+                var result = new DataTable().Compute(str, null);
+                txtRes.Text = result.ToString();
+                str = string.Empty;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Please enter a valid number to calculate.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtRes.Text = "Error";
+                str = string.Empty;
             }
         }
 
@@ -79,7 +46,7 @@ namespace CalculatorTask
         {
             if (!string.IsNullOrEmpty(txtRes.Text))
             {
-                txtRes.Text = txtRes.Text.Remove(txtRes.Text.Length - 1);
+                txtRes.Text = txtRes.Text.Substring(0, txtRes.Text.Length - 1);
             }
         }
 

@@ -172,7 +172,7 @@
             BtnPlusOpr.TabIndex = 9;
             BtnPlusOpr.Text = "+";
             BtnPlusOpr.UseVisualStyleBackColor = false;
-            BtnPlusOpr.Click += btnOper_Click;
+            BtnPlusOpr.Click += btnNums;
             // 
             // btnMultiple
             // 
@@ -183,9 +183,9 @@
             btnMultiple.Name = "btnMultiple";
             btnMultiple.Size = new Size(91, 60);
             btnMultiple.TabIndex = 10;
-            btnMultiple.Text = "x";
+            btnMultiple.Text = "*";
             btnMultiple.UseVisualStyleBackColor = false;
-            btnMultiple.Click += btnOper_Click;
+            btnMultiple.Click += btnNums;
             // 
             // btnNum0
             // 
@@ -209,7 +209,7 @@
             btnMinus.TabIndex = 12;
             btnMinus.Text = "-";
             btnMinus.UseVisualStyleBackColor = false;
-            btnMinus.Click += btnOper_Click;
+            btnMinus.Click += btnNums;
             // 
             // btnDot
             // 
@@ -231,7 +231,7 @@
             btnClear.TabIndex = 14;
             btnClear.Text = "C";
             btnClear.UseVisualStyleBackColor = true;
-            btnClear.Click += btnClear_Click;
+            btnClear.Click += btnNums;
             // 
             // btnDived
             // 
@@ -244,7 +244,7 @@
             btnDived.TabIndex = 15;
             btnDived.Text = "/";
             btnDived.UseVisualStyleBackColor = false;
-            btnDived.Click += btnOper_Click;
+            btnDived.Click += btnNums;
             // 
             // btnDelet
             // 
@@ -257,7 +257,7 @@
             btnDelet.TabIndex = 16;
             btnDelet.Text = "D";
             btnDelet.UseVisualStyleBackColor = false;
-            btnDelet.Click += btnDelet_Click;
+            btnDelet.Click += btnNums;
             // 
             // btnEqual
             // 

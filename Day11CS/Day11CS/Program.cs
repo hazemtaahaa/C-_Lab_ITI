@@ -162,8 +162,8 @@
             /////////////////////
 
             #region Exam system v.2 BONUSE
-            // final.ShowExamV2();  //Bounse
-            Practice.ShowExamV2();  //Bounse
+             final.ShowExamV2();  //Bounse
+            //Practice.ShowExamV2();  //Bounse
             #endregion
 
             /////////////////////
